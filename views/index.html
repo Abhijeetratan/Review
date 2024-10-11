@@ -8,23 +8,33 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            overflow-x: hidden; /* Prevent horizontal scrollbar on body */
         }
 
         header {
             text-align: center;
         }
 
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden; /* Hide overflow for the carousel */
+        }
+
         .reviews {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            display: flex; /* Change to flex for horizontal layout */
+            transition: transform 0.3s ease; /* Smooth transition for sliding effect */
+            gap: 20px; /* Space between reviews */
+            padding: 10px 0; /* Optional padding */
         }
 
         .review {
+            flex: 0 0 auto; /* Prevent reviews from shrinking */
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 5px;
             position: relative;
+            min-width: 300px; /* Ensure each review has a minimum width */
         }
 
         .rating {
@@ -68,6 +78,36 @@
         .submit-btn:hover {
             background-color: #218838;
         }
+
+        /* Optional styling for scrollbar */
+        .reviews::-webkit-scrollbar {
+            height: 8px;
+        }
+        .reviews::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+        /* Navigation buttons */
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-button.left {
+            left: 10px;
+        }
+
+        .carousel-button.right {
+            right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -75,9 +115,7 @@
         <h1>User Reviews</h1>
     </header>
     <main>
-        <!-- Review List -->
-        <div class="reviews" id="reviewList"></div>
-
+    
         <!-- Review Submission Form -->
         <div class="review-form">
             <h3>Submit a Review</h3>
@@ -92,12 +130,21 @@
             <textarea id="reviewText" rows="4" placeholder="Your Review" required></textarea>
             <button class="submit-btn" id="submitReview">Submit Review</button>
         </div>
+        <div class="carousel">
+            <button class="carousel-button left" id="prevReview">❮</button>
+            <div class="reviews" id="reviewList"></div>
+            <button class="carousel-button right" id="nextReview">❯</button>
+        </div>
+
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('.star');
+            const reviewList = document.getElementById('reviewList');
             let ratingValue = 0;
+            let currentIndex = 0; // Track the current index of the reviews
+            const reviewWidth = 320; // Adjust based on min-width + gap
 
             // Star rating logic
             stars.forEach(star => {
@@ -154,7 +201,6 @@
 
             // Dynamically add a review to the list
             function addReviewToList(review) {
-                const reviewList = document.getElementById('reviewList');
                 const reviewDiv = document.createElement('div');
                 reviewDiv.className = 'review';
                 reviewDiv.innerHTML = `
@@ -171,6 +217,33 @@
                 .then(reviews => {
                     reviews.forEach(addReviewToList);
                 });
+
+            // Carousel navigation
+            document.getElementById('nextReview').addEventListener('click', () => {
+                currentIndex++;
+                updateCarousel();
+            });
+
+            document.getElementById('prevReview').addEventListener('click', () => {
+                currentIndex--;
+                updateCarousel();
+            });
+
+            function updateCarousel() {
+                const reviewItems = document.querySelectorAll('.review');
+                const totalReviews = reviewItems.length;
+
+                // Loop back if at the end or beginning
+                if (currentIndex >= totalReviews) {
+                    currentIndex = 0;
+                } else if (currentIndex < 0) {
+                    currentIndex = totalReviews - 1;
+                }
+
+                // Calculate the translateX value
+                const translateX = -currentIndex * reviewWidth;
+                reviewList.style.transform = `translateX(${translateX}px)`;
+            }
         });
     </script>
 </body>
