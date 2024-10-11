@@ -27,12 +27,6 @@
             position: relative;
         }
 
-        .review img {
-            display: block;
-            margin: 10px 0;
-            max-width: 200px;
-        }
-
         .rating {
             color: gold;
         }
@@ -74,15 +68,6 @@
         .submit-btn:hover {
             background-color: #218838;
         }
-
-        .image-preview {
-            display: none;
-            margin-top: 10px;
-        }
-
-        .image-preview img {
-            max-width: 200px;
-        }
     </style>
 </head>
 <body>
@@ -105,12 +90,6 @@
                 <span class="star" data-value="5">★</span>
             </div>
             <textarea id="reviewText" rows="4" placeholder="Your Review" required></textarea>
-            <!-- Image File Input -->
-            <input type="file" id="imageFile" accept="image/*">
-            <div class="image-preview" id="imagePreview">
-                <p>Image Preview:</p>
-                <img id="previewImg" src="#" alt="Image Preview">
-            </div>
             <button class="submit-btn" id="submitReview">Submit Review</button>
         </div>
     </main>
@@ -119,7 +98,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('.star');
             let ratingValue = 0;
-            let selectedFile = null;
 
             // Star rating logic
             stars.forEach(star => {
@@ -132,24 +110,6 @@
                 });
             });
 
-            // Image file input logic
-            const imageFileInput = document.getElementById('imageFile');
-            const imagePreview = document.getElementById('imagePreview');
-            const previewImg = document.getElementById('previewImg');
-
-            imageFileInput.addEventListener('change', () => {
-                const file = imageFileInput.files[0];
-                if (file) {
-                    selectedFile = file;
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        previewImg.src = e.target.result;
-                        imagePreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
             // Submit review
             document.getElementById('submitReview').addEventListener('click', async () => {
                 const name = document.getElementById('name').value;
@@ -160,19 +120,20 @@
                     return;
                 }
 
-                // Create FormData to send file and other data
-                const formData = new FormData();
-                formData.append('name', name);
-                formData.append('rating', ratingValue);
-                formData.append('review', review);
-                if (selectedFile) {
-                    formData.append('image', selectedFile);
-                }
+                // Create the review object to send to the server
+                const reviewData = {
+                    name,
+                    rating: ratingValue,
+                    review
+                };
 
-                // Send the form data to the server
+                // Send the review data to the server
                 const response = await fetch('/reviews', {
                     method: 'POST',
-                    body: formData // Use FormData for file upload
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(reviewData)
                 });
 
                 const result = await response.json();
@@ -181,8 +142,7 @@
                     // Clear the form
                     document.getElementById('name').value = '';
                     document.getElementById('reviewText').value = '';
-                    imageFileInput.value = '';
-                    imagePreview.style.display = 'none';
+                    ratingValue = 0;
                     stars.forEach(s => s.classList.remove('selected'));
 
                     // Refresh the review list dynamically
@@ -201,7 +161,6 @@
                     <h2>${review.name}</h2>
                     <p class="rating">${'★'.repeat(review.rating)}</p>
                     <p>${review.review}</p>
-                    ${review.imageUrl ? `<img src="${review.imageUrl}" alt="${review.name}'s review image">` : ''}
                 `;
                 reviewList.appendChild(reviewDiv);
             }
