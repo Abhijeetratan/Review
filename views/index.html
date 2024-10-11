@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .review {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .review img {
+            display: block;
+            margin: 10px 0;
+            max-width: 200px;
+        }
+
+        .rating {
+            color: gold;
+        }
+
+        .review-form {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .review-form input, .review-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .star {
+            cursor: pointer;
+            font-size: 20px;
+            color: gray;
+        }
+
+        .star.selected {
+            color: gold;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .image-preview img {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Reviews</h1>
+    </header>
+    <main>
+        <!-- Review List -->
+        <div class="reviews" id="reviewList"></div>
+
+        <!-- Review Submission Form -->
+        <div class="review-form">
+            <h3>Submit a Review</h3>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <div id="ratingContainer">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <textarea id="reviewText" rows="4" placeholder="Your Review" required></textarea>
+            <!-- Image File Input -->
+            <input type="file" id="imageFile" accept="image/*">
+            <div class="image-preview" id="imagePreview">
+                <p>Image Preview:</p>
+                <img id="previewImg" src="#" alt="Image Preview">
+            </div>
+            <button class="submit-btn" id="submitReview">Submit Review</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star');
+            let ratingValue = 0;
+            let selectedFile = null;
+
+            // Star rating logic
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    ratingValue = star.getAttribute('data-value');
+                    stars.forEach(s => s.classList.remove('selected'));
+                    for (let i = 0; i < ratingValue; i++) {
+                        stars[i].classList.add('selected');
+                    }
+                });
+            });
+
+            // Image file input logic
+            const imageFileInput = document.getElementById('imageFile');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+
+            imageFileInput.addEventListener('change', () => {
+                const file = imageFileInput.files[0];
+                if (file) {
+                    selectedFile = file;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewImg.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Submit review
+            document.getElementById('submitReview').addEventListener('click', async () => {
+                const name = document.getElementById('name').value;
+                const review = document.getElementById('reviewText').value;
+
+                if (!name || !ratingValue || !review) {
+                    alert('Please fill out all fields');
+                    return;
+                }
+
+                // Create FormData to send file and other data
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('rating', ratingValue);
+                formData.append('review', review);
+                if (selectedFile) {
+                    formData.append('image', selectedFile);
+                }
+
+                // Send the form data to the server
+                const response = await fetch('/reviews', {
+                    method: 'POST',
+                    body: formData // Use FormData for file upload
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Clear the form
+                    document.getElementById('name').value = '';
+                    document.getElementById('reviewText').value = '';
+                    imageFileInput.value = '';
+                    imagePreview.style.display = 'none';
+                    stars.forEach(s => s.classList.remove('selected'));
+
+                    // Refresh the review list dynamically
+                    addReviewToList(result.newReview);
+                } else {
+                    alert(result.message);
+                }
+            });
+
+            // Dynamically add a review to the list
+            function addReviewToList(review) {
+                const reviewList = document.getElementById('reviewList');
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review';
+                reviewDiv.innerHTML = `
+                    <h2>${review.name}</h2>
+                    <p class="rating">${'★'.repeat(review.rating)}</p>
+                    <p>${review.review}</p>
+                    ${review.imageUrl ? `<img src="${review.imageUrl}" alt="${review.name}'s review image">` : ''}
+                `;
+                reviewList.appendChild(reviewDiv);
+            }
+
+            // Load existing reviews (mockup)
+            fetch('/reviews')
+                .then(response => response.json())
+                .then(reviews => {
+                    reviews.forEach(addReviewToList);
+                });
+        });
+    </script>
+</body>
+</html>
