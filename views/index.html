@@ -64,7 +64,7 @@
         }
 
         .review {
-            flex: 0 0 500px; /* Fixed width for each review */
+            flex: 0 0 400px; /* Fixed width for each review */
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 5px;
@@ -146,26 +146,64 @@
             border-radius: 10px;
         }
 
-        /* Navigation buttons */
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
+      .carousel {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 90%; /* Set the width to 50% */
+    position: relative;
+    margin: 0 auto; /* Center the carousel horizontally */
+}
 
-        .carousel-button.left {
-            left: 10px;
-        }
+.reviews {
+    display: flex;
+    transition: transform 0.3s ease;
+    flex-wrap: nowrap; /* Prevents wrapping to a new line */
+}
 
-        .carousel-button.right {
-            right: 10px;
-        }
+.review {
+    min-width: 30%; /* Make each review take full width on mobile */
+    padding: 10px;   /* Padding around each review */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: center; /* Center-align text for better readability */
+}
+
+.carousel-button {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 50%; /* Rounded buttons */
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10; /* Keep buttons above other elements */
+}
+
+.carousel-button.left {
+    position: absolute;
+    left: 10px; /* Adjust position for left button */
+}
+
+.carousel-button.right {
+    position: absolute;
+    right: 10px; /* Adjust position for right button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel {
+        width: 90%; /* Increase width on smaller screens */
+    }
+
+    .carousel-button {
+        font-size: 16px; /* Adjust button size for smaller screens */
+        padding: 8px;    /* Adjust button padding */
+    }
+
+    .review {
+        font-size: 14px; /* Adjust review font size */
+    }
+}
 
         /* Styling for rating term */
         .rating-term {
@@ -242,6 +280,7 @@
             <div class="reviews" id="reviewList"></div>
             <button class="carousel-button right" id="nextReview">❯</button>
         </div>
+        
     </main>
 
     <script>
