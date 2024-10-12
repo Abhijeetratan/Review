@@ -46,7 +46,7 @@
     <style>
    .navbar .dropdown-toggle::after {
     border: none;
-    content: "\f107";
+    content: "f107";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     vertical-align: middle;
@@ -246,7 +246,7 @@ header h1, header p {
     display: flex;
     align-items: center;
     overflow: hidden;
-    width: 90%; /* Set the width to 50% */
+    width: 100%; /* Set the width to 50% */
     position: relative;
     margin: 0 auto; /* Center the carousel horizontally */
 }
@@ -277,28 +277,29 @@ header h1, header p {
 
 .carousel-button.left {
     position: absolute;
-    left: 10px; /* Adjust position for left button */
+    left: -20px; /* Adjust position for left button */
+
 }
 
 .carousel-button.right {
     position: absolute;
-    right: 10px; /* Adjust position for right button */
+    right: -20px; 
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .carousel {
-        width: 90%; /* Increase width on smaller screens */
+        width:75%; /* Increase width on smaller screens */
     }
 
     .carousel-button {
         font-size: 16px; /* Adjust button size for smaller screens */
-        padding: 8px;    /* Adjust button padding */
+        padding: 5px;    /* Adjust button padding */
     }
 
     .review {
-    max-width: 40%; /* Make each review take full width on mobile */
-    padding: 10px;   /* Padding around each review */
+    max-width: 38%; /* Make each review take full width on mobile */
+    padding: 5px;   /* Padding around each review */
     box-sizing: border-box; /* Include padding in width */
     text-align: center; /* Center-align text for better readability */
 }
@@ -312,10 +313,11 @@ header h1, header p {
         }
         @media (max-width: 600px) {
     .review-form {
-        width:90%;
+        width:100%;
         margin: 20px; /* Less margin for smaller screens */
     }
 }
+
 .review-name {
     font-family: 'Playfair Display', serif; /* Elegant, high-contrast serif font */
     font-size: 26px; /* Slightly larger for more emphasis */
@@ -327,7 +329,7 @@ header h1, header p {
 
 .review-text {
     font-family: 'Roboto Slab', serif; /* Clean slab-serif font for readability */
-    font-size: 20px; /* Slightly larger text */
+    font-size: 19px; /* Slightly larger text */
     color: #555; /* Muted color for readability */
     line-height: 1.7; /* Improved line height for better spacing */
     margin-bottom: 16px; /* Space below each review */
@@ -402,12 +404,16 @@ header h1, header p {
                 <div class="col-12 text-center">
                     <div class="carousel">
                         <div class="carousel-container d-flex justify-content-center align-items-center">
-    <!-- <button class="carousel-button left" id="prevReview">&lt;&lt;</button> -->
-    <div class="reviews" id="reviewList">
-        <!-- Review items will be dynamically injected here -->
-    </div>
-    <!-- <button class="carousel-button right" id="nextReview">&gt;&gt;</button> -->
-</div>
+                            <button class="carousel-button left" id="prevReview">&lt;&lt;</button>
+                            
+                            <div class="reviews row" id="reviewList">
+                                <!-- Review items will be dynamically injected here -->
+                            </div>
+                            
+                            <button class="carousel-button right" id="nextReview">&gt;&gt;</button>
+                        </div>
+                    </div>
+                    
 
                 </div>
             </div>
@@ -463,7 +469,7 @@ header h1, header p {
     let ratingValue = 0;
     let currentIndex = 0; // Track the current index of the reviews
     const reviewsToShow = 1; // Number of reviews to show at a time
-    const reviewWidth = 320; // Adjust based on review width
+    const reviewWidth = 300; // Adjust based on review width
     let isTransitioning = false; // Flag to check if a transition is happening
 
     // Initialize star rating logic
@@ -541,12 +547,13 @@ header h1, header p {
     // Dynamically add a review to the list
     function addReviewToList(review) {
     const reviewDiv = document.createElement('div');
-    reviewDiv.className = 'review';
+    reviewDiv.className = 'col-8 col-md-6 col-lg-4 review'; // Adjust for responsive design
     reviewDiv.innerHTML = `
-        <h2 class="review-name">${review.name}</h2>
-<p class="rating">${'★'.repeat(review.rating)}</p>
-
-        <p class="review-text">${review.review}</p>
+        <div class="review-content">
+            <h2 class="review-name">${review.name}</h2>
+            <p class="rating">${'★'.repeat(review.rating)}</p>
+            <p class="review-text">${review.review}</p>
+        </div>
     `;
     reviewList.appendChild(reviewDiv);
     updateCarousel(); // Update the carousel after adding a review
