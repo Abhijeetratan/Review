@@ -3,23 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
-    
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Feedback Form</title>
 
-    <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+    rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
+
+    <title>User Reviews</title>
     <style>
+        
+
         header {
             text-align: center;
         }
@@ -79,24 +104,25 @@
         }
 
         #ratingContainer {
-            display: flex; /* Flexbox to align stars */
-            justify-content: flex-start; /* Align stars to the left */
-            margin: 10px 0; /* Space around the rating */
-            width: 100%; /* Ensure full width */
-            margin-left: 20px;
-        }
+    display: flex; /* Flexbox to align stars */
+    justify-content: flex-start; /* Align stars to the left */
+    margin: 10px 0; /* Space around the rating */
+    width: 100%; /* Ensure full width */
+    margin-left: 20px;
+}
 
-        .star {
-            cursor: pointer;
-            font-size: 20px; /* Font size for stars */
-            color: gray; /* Default star color */
-            margin: 0 4px; /* Increased space between stars */
-            transition: color 0.3s; /* Smooth transition for color change */
-        }
 
-        .star.selected {
-            color: gold; /* Color for selected stars */
-        }
+.star {
+    cursor: pointer;
+    font-size: 20px; /* Font size for stars */
+    color: gray; /* Default star color */
+    margin: 0 4px; /* Increased space between stars */
+    transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.star.selected {
+    color: gold; /* Color for selected stars */
+}
 
         .submit-btn {
             background-color: #28a745;
@@ -111,72 +137,89 @@
             background-color: #218838;
         }
 
-        .carousel {
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            width: 90%;
-            position: relative;
-            margin: 0 auto;
+        /* Optional styling for scrollbar */
+        .reviews::-webkit-scrollbar {
+            height: 8px;
+        }
+        .reviews::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
         }
 
-        .reviews {
-            display: flex;
-            transition: transform 0.3s ease;
-            flex-wrap: nowrap; /* Prevents wrapping to a new line */
+      .carousel {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 90%; /* Set the width to 50% */
+    position: relative;
+    margin: 0 auto; /* Center the carousel horizontally */
+}
+
+.reviews {
+    display: flex;
+    transition: transform 0.3s ease;
+    flex-wrap: nowrap; /* Prevents wrapping to a new line */
+}
+
+.review {
+    min-width: 30%; /* Make each review take full width on mobile */
+    padding: 10px;   /* Padding around each review */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: center; /* Center-align text for better readability */
+}
+
+.carousel-button {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 50%; /* Rounded buttons */
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10; /* Keep buttons above other elements */
+}
+
+.carousel-button.left {
+    position: absolute;
+    left: 10px; /* Adjust position for left button */
+}
+
+.carousel-button.right {
+    position: absolute;
+    right: 10px; /* Adjust position for right button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel {
+        width: 90%; /* Increase width on smaller screens */
+    }
+
+    .carousel-button {
+        font-size: 16px; /* Adjust button size for smaller screens */
+        padding: 8px;    /* Adjust button padding */
+    }
+
+    .review {
+    max-width: 40%; /* Make each review take full width on mobile */
+    padding: 10px;   /* Padding around each review */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: center; /* Center-align text for better readability */
+}
+}
+
+        /* Styling for rating term */
+        .rating-term {
+            margin-top: 10px; /* Space above the rating term */
+            font-weight: bold;
+            font-size: 16px; /* Font size for the term */
         }
-
-        .review {
-            min-width: 30%;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .carousel-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            z-index: 10;
-        }
-
-        .carousel-button.left {
-            position: absolute;
-            left: 10px;
-        }
-
-        .carousel-button.right {
-            position: absolute;
-            right: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .carousel {
-                width: 90%;
-            }
-
-            .carousel-button {
-                font-size: 16px;
-                padding: 8px;
-            }
-
-            .review {
-                max-width: 40%;
-                padding: 10px;
-                text-align: center;
-            }
-        }
-
         @media (max-width: 600px) {
-            .review-form {
-                width: 90%;
-                margin: 20px;
-            }
-        }
+    .review-form {
+        width:90%;
+        margin: 20px; /* Less margin for smaller screens */
+    }
+}
     </style>
 </head>
 <body>
@@ -191,15 +234,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="courses.html" class="nav-item nav-link">Courses</a>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+                <a href="https://techroots.onrender.com/index.html" class="nav-item nav-link active">Home</a>
+                <a href="https://techroots.onrender.com/about.html" class="nav-item nav-link">About</a>
+                <a href="https://techroots.onrender.com/courses.html" class="nav-item nav-link">Courses</a>
+    
+                <!-- Dropdown menu for more pages, uncomment if needed -->
+                <!-- <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="https://techroots.onrender.com/team.html" class="dropdown-item">Our Team</a>
+                        <a href="https://techroots.onrender.com/testimonial.html" class="dropdown-item">Testimonial</a>
+                        <a href="review.html" class="dropdown-item">Review</a>
+                    </div>
+                </div> -->
+    
+                <a href="https://techroots.onrender.com/contact.html" class="nav-item nav-link">Contact</a>
+                <a href="https://techroots.onrender.com/login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+    
+                <!-- Uncomment this section for Google Translate, if needed -->
+                <!-- <a href="#" class="nav-item nav-link">
+                    <div id="google_translate_element"></div>
+                </a> -->
             </div>
         </div>
     </nav>
-
+    
     <header class="text-center mb-4">
         <h1 class="display-4">Feedback Form</h1>
         <p class="lead">We value your feedback! Please leave a review below.</p>
@@ -208,6 +267,7 @@
     <main>
         <!-- Review Submission Form -->
         <div class="review-form">
+        
             <input type="text" id="name" placeholder="Your Name" required style="margin-top: 20px;">
             <div id="ratingContainer">
                 <span class="star" data-value="1">★</span>
@@ -216,10 +276,11 @@
                 <span class="star" data-value="4">★</span>
                 <span class="star" data-value="5">★</span>
             </div>
+            
+
             <textarea id="reviewText" rows="4" placeholder="Your Review" required></textarea>
             <button class="submit-btn" id="submitReview">Submit Review</button>
         </div>
-
         <header>
             <h1>User Reviews</h1>
         </header>
@@ -228,64 +289,143 @@
             <div class="reviews" id="reviewList"></div>
             <button class="carousel-button right" id="nextReview">❯</button>
         </div>
+        
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const stars = document.querySelectorAll('.star');
-            const reviewList = document.getElementById('reviewList');
-            let ratingValue = 0;
-            let currentIndex = 0; // Track the current index of the reviews
-            const reviewsToShow = 2; // Number of reviews to show at a time
-            const reviewWidth = 320; // Adjust based on review width
+    const stars = document.querySelectorAll('.star');
+    const reviewList = document.getElementById('reviewList');
+    const ratingTerm = document.getElementById('ratingTerm');
+    let ratingValue = 0;
+    let currentIndex = 0; // Track the current index of the reviews
+    const reviewsToShow = 2; // Number of reviews to show at a time
+    const reviewWidth = 320; // Adjust based on review width
 
-            // Star rating selection logic
-            stars.forEach((star) => {
-                star.addEventListener('click', () => {
-                    ratingValue = star.getAttribute('data-value');
-                    stars.forEach((s) => {
-                        s.classList.toggle('selected', s.getAttribute('data-value') <= ratingValue);
-                    });
-                });
+    // Star rating logic
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            ratingValue = star.getAttribute('data-value');
+            stars.forEach(s => s.classList.remove('selected'));
+            for (let i = 0; i < ratingValue; i++) {
+                stars[i].classList.add('selected');
+            }
+            // Set the rating term based on the rating value
+            ratingTerm.textContent = `Rating: ${getRatingTerm(ratingValue)}`;
+        });
+    });
+
+    // Function to get rating term based on rating value
+    function getRatingTerm(value) {
+        switch (parseInt(value)) {
+            case 1: return 'Terrible';
+            case 2: return 'Poor';
+            case 3: return 'Average';
+            case 4: return 'Good';
+            case 5: return 'Excellent';
+            default: return 'None';
+        }
+    }
+
+    // Submit review
+    document.getElementById('submitReview').addEventListener('click', async () => {
+        const name = document.getElementById('name').value;
+        const review = document.getElementById('reviewText').value;
+
+        if (!name || !ratingValue || !review) {
+            alert('Please fill out all fields');
+            return;
+        }
+
+        // Create the review object to send to the server
+        const reviewData = {
+            name,
+            rating: ratingValue,
+            review
+        };
+
+        // Immediately display the review in the frontend
+        addReviewToList(reviewData); // Add the review immediately
+
+        try {
+            // Send the review data to the server
+            const response = await fetch('/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reviewData)
             });
 
-            // Carousel navigation buttons
-            document.getElementById('prevReview').addEventListener('click', () => {
-                currentIndex = Math.max(currentIndex - reviewsToShow, 0);
-                reviewList.style.transform = `translateX(-${currentIndex * reviewWidth}px)`;
-            });
+            const result = await response.json();
 
-            document.getElementById('nextReview').addEventListener('click', () => {
-                const totalReviews = document.querySelectorAll('.review').length;
-                currentIndex = Math.min(currentIndex + reviewsToShow, totalReviews - reviewsToShow);
-                reviewList.style.transform = `translateX(-${currentIndex * reviewWidth}px)`;
-            });
+            if (!result.success) {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            alert('Failed to submit review. Please try again.');
+        }
 
-            // Submit review
-            document.getElementById('submitReview').addEventListener('click', () => {
-                const name = document.getElementById('name').value;
-                const reviewText = document.getElementById('reviewText').value;
+        // Clear the form
+        document.getElementById('name').value = '';
+        document.getElementById('reviewText').value = '';
+        ratingValue = 0;
+        stars.forEach(s => s.classList.remove('selected'));
+        ratingTerm.textContent = 'Rating: None'; // Reset rating term
+    });
 
-                if (name && reviewText && ratingValue > 0) {
-                    const newReview = document.createElement('div');
-                    newReview.classList.add('review');
-                    newReview.innerHTML = `
-                        <h4>${name}</h4>
-                        <p>${reviewText}</p>
-                        <div class="rating">${'★'.repeat(ratingValue)}</div>
-                    `;
-                    reviewList.appendChild(newReview);
+    // Dynamically add a review to the list
+    function addReviewToList(review) {
+        const reviewDiv = document.createElement('div');
+        reviewDiv.className = 'review';
+        reviewDiv.innerHTML = `
+            <h2>${review.name}</h2>
+            <p class="rating">${'★'.repeat(review.rating)}</p>
+            <p>${review.review}</p>
+        `;
+        reviewList.appendChild(reviewDiv);
+        updateCarousel(); // Update the carousel after adding a review
+    }
 
-                    // Reset form fields
-                    document.getElementById('name').value = '';
-                    document.getElementById('reviewText').value = '';
-                    stars.forEach((s) => s.classList.remove('selected'));
-                    ratingValue = 0;
-                } else {
-                    alert('Please fill out all fields and select a rating.');
-                }
+    // Load existing reviews (mockup)
+    fetch('/reviews')
+        .then(response => response.json())
+        .then(reviews => {
+            reviews.forEach(review => {
+                addReviewToList(review);
             });
         });
+
+    // Carousel navigation
+    document.getElementById('nextReview').addEventListener('click', () => {
+        currentIndex += reviewsToShow;
+        updateCarousel();
+    });
+
+    document.getElementById('prevReview').addEventListener('click', () => {
+        currentIndex -= reviewsToShow;
+        updateCarousel();
+    });
+
+    // Update carousel based on currentIndex
+    function updateCarousel() {
+        const totalReviews = reviewList.children.length;
+        if (currentIndex < 0) currentIndex = 0; // Prevent going to negative index
+        if (currentIndex >= totalReviews) currentIndex = Math.max(0, totalReviews - reviewsToShow); // Prevent overflow
+
+        // Set transform to move the reviews
+        reviewList.style.transition = 'transform 1.5s ease'; // Add transition here if needed
+        reviewList.style.transform = `translateX(-${currentIndex * reviewWidth}px)`;
+    }
+
+    // Automatic slide functionality
+    const slideInterval = setInterval(() => {
+        currentIndex += reviewsToShow;
+        updateCarousel();
+    }, 5000); // Change the interval (in milliseconds) as needed (5 seconds in this case)
+});
+
     </script>
-</body>
+    </body>
 </html>
