@@ -43,11 +43,125 @@
 
     <title>User Reviews</title>
     <style>
-        
+   .navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    margin-right: 30px;
+    padding: 25px 0;
+    color: #FFFFFF;
+    font-size: 15px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.focus {
+    color: var(--primary);
+}
+
+@media (max-width: 991.98px) {
+    .navbar-light .navbar-nav .nav-link {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navbar-light .navbar-nav {
+        border-top: 1px solid #EEEEEE;
+    }
+}
+
+.navbar-light .navbar-brand,
+.navbar-light a.btn {
+    height: 75px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.navbar-light.sticky-top {
+    top: -100px;
+    transition: .5s;
+}
+
+.navbar-toggler-icon {
+    color: #fbcf3f;
+}
+
+.navbar-toggler {
+    border: 2px solid #fbdf3f;
+}
+
+.carousel-button {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 50%; /* Rounded buttons */
+    padding: 10px; /* Adjust padding as necessary */
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10; /* Keep buttons above other elements */
+    position: absolute; /* Positioning the buttons absolutely */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically with transform */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.carousel-button.left {
+    left: -40px; /* Adjust based on your layout */
+}
+
+.carousel-button.right {
+    right: -40px; /* Adjust based on your layout */
+}
+
+.carousel-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        margin-top: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .dropdown-menu.fade-down {
+        top: 100%;
+        transform: rotateX(-75deg);
+        transform-origin: 0% 0%;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        transform: rotateX(0deg);
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}
+
      
-        header {
-            text-align: center;
-        }
+header {
+    background-color:#0b131b; /* Sets the background color to blue */
+    color:#d4af37 ; /* Sets the font color to yellow */
+    padding: 20px; /* Optional: Adds padding for better spacing */
+}
+
+header h1, header p {
+    margin: 0; /* Removes default margin for header elements */
+}
 
         .carousel {
     display: flex;
@@ -256,7 +370,7 @@
                 </div> -->
     
                 <a href="https://techroots.onrender.com/contact.html" class="nav-item nav-link">Contact</a>
-                <a href="https://techroots.onrender.com/login.html" class="nav-item nav-link">
+    
     
                 <!-- Uncomment this section for Google Translate, if needed -->
                 <!-- <a href="#" class="nav-item nav-link">
@@ -288,14 +402,25 @@
             <textarea id="reviewText" rows="4" placeholder="Your Review" required></textarea>
             <button class="submit-btn" id="submitReview">Submit Review</button>
         </div>
-        <header>
+        <header class="text-center mb-4">
             <h1>User Reviews</h1>
         </header>
-        <div class="carousel">
-            <button class="carousel-button left" id="prevReview">❮</button>
-            <div class="reviews" id="reviewList"></div>
-            <button class="carousel-button right" id="nextReview">❯</button>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <div class="carousel">
+                        <div class="carousel-container d-flex justify-content-center align-items-center">
+    <button class="carousel-button left" id="prevReview">&lt;&lt;</button>
+    <div class="reviews" id="reviewList">
+        <!-- Review items will be dynamically injected here -->
+    </div>
+    <button class="carousel-button right" id="nextReview">&gt;&gt;</button>
+</div>
+
+                </div>
+            </div>
         </div>
+        
         
     </main>
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -332,72 +457,74 @@
     <!-- Footer End -->
     
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     const stars = document.querySelectorAll('.star');
     const reviewList = document.getElementById('reviewList');
     const ratingTerm = document.getElementById('ratingTerm');
+    const submitReviewButton = document.getElementById('submitReview');
+    const nameInput = document.getElementById('name');
+    const reviewInput = document.getElementById('reviewText');
+
     let ratingValue = 0;
     let currentIndex = 0; // Track the current index of the reviews
     const reviewsToShow = 2; // Number of reviews to show at a time
     const reviewWidth = 320; // Adjust based on review width
+    let isTransitioning = false; // Flag to check if a transition is happening
 
-    // Star rating logic
+    // Initialize star rating logic
     stars.forEach(star => {
-        star.addEventListener('click', () => {
-            ratingValue = star.getAttribute('data-value');
-            stars.forEach(s => s.classList.remove('selected'));
-            for (let i = 0; i < ratingValue; i++) {
-                stars[i].classList.add('selected');
-            }
-            // Set the rating term based on the rating value
-            ratingTerm.textContent = `Rating: ${getRatingTerm(ratingValue)}`;
-        });
+        star.addEventListener('click', handleStarClick);
     });
 
-    // Function to get rating term based on rating value
+    // Handle star click to set the rating
+    function handleStarClick(event) {
+        ratingValue = event.currentTarget.getAttribute('data-value');
+        updateStarSelection();
+        ratingTerm.textContent = `Rating: ${getRatingTerm(ratingValue)}`;
+    }
+
+    // Update star selection UI
+    function updateStarSelection() {
+        stars.forEach((star, index) => {
+            star.classList.toggle('selected', index < ratingValue);
+        });
+    }
+
+    // Get rating term based on rating value
     function getRatingTerm(value) {
-        switch (parseInt(value)) {
-            case 1: return 'Terrible';
-            case 2: return 'Poor';
-            case 3: return 'Average';
-            case 4: return 'Good';
-            case 5: return 'Excellent';
-            default: return 'None';
-        }
+        const ratingTerms = ['None', 'Terrible', 'Poor', 'Average', 'Good', 'Excellent'];
+        return ratingTerms[parseInt(value)] || 'None';
     }
 
     // Submit review
-    document.getElementById('submitReview').addEventListener('click', async () => {
-        const name = document.getElementById('name').value;
-        const review = document.getElementById('reviewText').value;
+    submitReviewButton.addEventListener('click', async () => {
+        const name = nameInput.value.trim();
+        const review = reviewInput.value.trim();
 
         if (!name || !ratingValue || !review) {
             alert('Please fill out all fields');
             return;
         }
 
-        // Create the review object to send to the server
-        const reviewData = {
-            name,
-            rating: ratingValue,
-            review
-        };
-
+        // Create review object
+        const reviewData = { name, rating: ratingValue, review };
+        
         // Immediately display the review in the frontend
-        addReviewToList(reviewData); // Add the review immediately
+        addReviewToList(reviewData);
+        await submitReviewToServer(reviewData);
+        resetForm();
+    });
 
+    // Submit review to server
+    async function submitReviewToServer(reviewData) {
         try {
-            // Send the review data to the server
             const response = await fetch('/reviews', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reviewData)
             });
 
             const result = await response.json();
-
             if (!result.success) {
                 alert(result.message);
             }
@@ -405,14 +532,16 @@
             console.error('Error submitting review:', error);
             alert('Failed to submit review. Please try again.');
         }
+    }
 
-        // Clear the form
-        document.getElementById('name').value = '';
-        document.getElementById('reviewText').value = '';
+    // Clear form inputs and reset values
+    function resetForm() {
+        nameInput.value = '';
+        reviewInput.value = '';
         ratingValue = 0;
-        stars.forEach(s => s.classList.remove('selected'));
-        ratingTerm.textContent = 'Rating: None'; // Reset rating term
-    });
+        updateStarSelection();
+        ratingTerm.textContent = 'Rating: None';
+    }
 
     // Dynamically add a review to the list
     function addReviewToList(review) {
@@ -428,43 +557,77 @@
     }
 
     // Load existing reviews (mockup)
-    fetch('/reviews')
-        .then(response => response.json())
-        .then(reviews => {
-            reviews.forEach(review => {
-                addReviewToList(review);
-            });
+    loadReviews();
+
+    async function loadReviews() {
+        try {
+            const response = await fetch('/reviews');
+            const reviews = await response.json();
+            reviews.forEach(addReviewToList);
+            currentIndex = 0; // Reset currentIndex after loading reviews
+            updateCarousel(); // Ensure carousel shows the first set of reviews
+        } catch (error) {
+            console.error('Error loading reviews:', error);
+        }
+    }
+
+    // Check if navigation elements exist
+    const nextButton = document.getElementById('nextReview');
+    const prevButton = document.getElementById('prevReview');
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            if (!isTransitioning) {
+                currentIndex += reviewsToShow;
+                updateCarousel();
+            }
         });
+    }
 
-    // Carousel navigation
-    document.getElementById('nextReview').addEventListener('click', () => {
-        currentIndex += reviewsToShow;
-        updateCarousel();
-    });
-
-    document.getElementById('prevReview').addEventListener('click', () => {
-        currentIndex -= reviewsToShow;
-        updateCarousel();
-    });
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            if (!isTransitioning) {
+                currentIndex -= reviewsToShow;
+                updateCarousel();
+            }
+        });
+    }
 
     // Update carousel based on currentIndex
     function updateCarousel() {
         const totalReviews = reviewList.children.length;
-        if (currentIndex < 0) currentIndex = 0; // Prevent going to negative index
-        if (currentIndex >= totalReviews) currentIndex = Math.max(0, totalReviews - reviewsToShow); // Prevent overflow
 
-        // Set transform to move the reviews
-        reviewList.style.transition = 'transform 1.5s ease'; // Add transition here if needed
+        // Clamp currentIndex to stay within bounds
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+        if (currentIndex >= totalReviews) {
+            currentIndex = totalReviews - reviewsToShow;
+        }
+
+        isTransitioning = true; // Set transition flag
+        reviewList.style.transition = 'transform 1.5s ease';
         reviewList.style.transform = `translateX(-${currentIndex * reviewWidth}px)`;
+
+        // Add transitionend event listener
+        reviewList.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    }
+
+    function handleTransitionEnd() {
+        isTransitioning = false; // Reset transition flag after transition ends
     }
 
     // Automatic slide functionality
-    const slideInterval = setInterval(() => {
-        currentIndex += reviewsToShow;
-        updateCarousel();
-    }, 5000); // Change the interval (in milliseconds) as needed (5 seconds in this case)
+    setInterval(() => {
+        if (!isTransitioning) {
+            currentIndex += reviewsToShow;
+            if (currentIndex >= reviewList.children.length) {
+                currentIndex = 0; // Loop back to start
+            }
+            updateCarousel();
+        }
+    }, 5000);
 });
-
     </script>
     </body>
 </html>

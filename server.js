@@ -44,10 +44,11 @@ const reviewSchema = new mongoose.Schema({
 const Review = mongoose.model('Review', reviewSchema);
 
 // Health check route
-app.get('/health', (req, res) => {
-    console.log("Health check route accessed");
-    res.status(200).json({ status: 'OK' });
-});
+// app.get('/health', (req, res) => {
+//     console.log("Health check route accessed");
+//     res.status(200).json({ status: 'OK' });
+// });
+
 
 // Serve the homepage
 app.get('/', (req, res) => {
