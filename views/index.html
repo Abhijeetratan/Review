@@ -44,16 +44,18 @@
     <title>User Reviews</title>
     <style>
         
-
+    
         header {
             text-align: center;
         }
 
         .carousel {
-            position: relative;
-            width: 100%;
-            overflow: hidden; /* Hide overflow for the carousel */
-        }
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    width: 100%; /* Adjust width as needed */
+}
 
         .reviews {
             display: flex; /* Change to flex for horizontal layout */
@@ -69,9 +71,14 @@
             padding: 15px;
             border-radius: 5px;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Default box shadow */
-            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transition for shadow and scale */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9); /* Default box shadow */
+            transition: box-shadow 0.5s ease, transform 0.5s ease; /* Transition for shadow and scale */
         }
+        .reviews {
+    display: flex; /* Display reviews in a row */
+   
+    will-change: transform; /* Optimizes performance */
+}
 
         .review:hover {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Darker and larger shadow on hover */
@@ -223,13 +230,13 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 35px;">
-                <img src="img/icon.png" alt="" height="50px">Tech<span style="color: #d4af37;">Roots Club</span>
-            </p>
+            <p class="m-0 fw-bold" style="font-size: 35px;"><img src="img/logo.png" alt="" height="50px">Tech<span
+                    style="color: #d4af37;">Roots</span></p>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" style="border: none;">
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            style="border: none;">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -291,7 +298,38 @@
         </div>
         
     </main>
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Quick Link</h4>
+                <p><a class="text-white" href="about.html">About Us</a></p>
+                <p><a class="text-white" href="contact.html">Contact Us</a></p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Contact</h4>
+                <a class="text-white mb-2"><i class="fa fa-map-marker-alt me-3"></i>Delhi</a><br>
+                <a class="text-white mb-2"href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqbzPsvPLHzPpbLzFkMHPzrlJZdQnlHcPHtBZNLmtBhpBGrDPcMMXlRFfgkLLHWbxhFjWL"target="_blank"><i class="fa fa-envelope me-3"></i> techrootsclub@gmail.com</a>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/techrootsclub/"target="_blank"><i class="fab fa-instagram"></i></a>
+                    <p class="text-white">Follow us on Instagram</p>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="index.html">TechRoots Club </a>, All Right Reserved.
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
     const stars = document.querySelectorAll('.star');
