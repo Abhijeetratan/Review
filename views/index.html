@@ -37,6 +37,7 @@
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <!-- Template Stylesheet -->
 <link href="css/style.css" rel="stylesheet">
@@ -172,8 +173,11 @@ header h1, header p {
         }
 
         .rating {
-            color: gold;
-        }
+    font-size: 30px; /* Increase the star size */
+    color: gold; /* Optional: Change star color */
+    margin: 10px 0; /* Optional: Add margin for spacing */
+}
+
 
         .review-form {
             width: 50%; /* Set width to 50% */
@@ -312,6 +316,22 @@ header h1, header p {
         margin: 20px; /* Less margin for smaller screens */
     }
 }
+.review-name {
+    font-family: 'Playfair Display', serif; /* Elegant, high-contrast serif font */
+    font-size: 26px; /* Slightly larger for more emphasis */
+    font-weight: 700; /* Bold for impact */
+    color: #2c3e50; /* Deep navy for a luxurious feel */
+    letter-spacing: 1px; /* Subtle letter spacing for style */
+    margin-bottom: 8px; /* Space below the name */
+}
+
+.review-text {
+    font-family: 'Roboto Slab', serif; /* Clean slab-serif font for readability */
+    font-size: 20px; /* Slightly larger text */
+    color: #555; /* Muted color for readability */
+    line-height: 1.7; /* Improved line height for better spacing */
+    margin-bottom: 16px; /* Space below each review */
+}
 
     </style>
 </head>
@@ -442,7 +462,7 @@ header h1, header p {
 
     let ratingValue = 0;
     let currentIndex = 0; // Track the current index of the reviews
-    const reviewsToShow = 2; // Number of reviews to show at a time
+    const reviewsToShow = 1; // Number of reviews to show at a time
     const reviewWidth = 320; // Adjust based on review width
     let isTransitioning = false; // Flag to check if a transition is happening
 
@@ -520,16 +540,17 @@ header h1, header p {
 
     // Dynamically add a review to the list
     function addReviewToList(review) {
-        const reviewDiv = document.createElement('div');
-        reviewDiv.className = 'review';
-        reviewDiv.innerHTML = `
-            <h2>${review.name}</h2>
-            <p class="rating">${'★'.repeat(review.rating)}</p>
-            <p>${review.review}</p>
-        `;
-        reviewList.appendChild(reviewDiv);
-        updateCarousel(); // Update the carousel after adding a review
-    }
+    const reviewDiv = document.createElement('div');
+    reviewDiv.className = 'review';
+    reviewDiv.innerHTML = `
+        <h2 class="review-name">${review.name}</h2>
+<p class="rating">${'★'.repeat(review.rating)}</p>
+
+        <p class="review-text">${review.review}</p>
+    `;
+    reviewList.appendChild(reviewDiv);
+    updateCarousel(); // Update the carousel after adding a review
+}
 
     // Load existing reviews (mockup)
     loadReviews();
