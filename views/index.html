@@ -99,35 +99,6 @@
 .navbar-toggler {
     border: 2px solid #fbdf3f;
 }
-
-.carousel-button {
-    background-color: #007bff; /* Button color */
-    color: white; /* Text color */
-    border: none;
-    border-radius: 50%; /* Rounded buttons */
-    padding: 10px; /* Adjust padding as necessary */
-    cursor: pointer;
-    font-size: 18px;
-    z-index: 10; /* Keep buttons above other elements */
-    position: absolute; /* Positioning the buttons absolutely */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Center vertically with transform */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
-}
-
-.carousel-button.left {
-    left: -40px; /* Adjust based on your layout */
-}
-
-.carousel-button.right {
-    right: -40px; /* Adjust based on your layout */
-}
-
-.carousel-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: scale(1.1); /* Slight scale effect on hover */
-}
-
 @media (min-width: 992px) {
     .navbar .nav-item .dropdown-menu {
         display: block;
@@ -341,13 +312,14 @@ header h1, header p {
         margin: 20px; /* Less margin for smaller screens */
     }
 }
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <p class="m-0 fw-bold" style="font-size: 35px;"><img src="img/logo.png" alt="" height="50px">Tech<span
-                    style="color: #d4af37;">Roots</span></p>
+                    style="color: #d4af37;">Roots Club</span></p>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             style="border: none;">
@@ -381,7 +353,7 @@ header h1, header p {
     </nav>
     
     <header class="text-center mb-4">
-        <h1 class="display-4">Feedback Form</h1>
+        <h1 class="display-4" style="font-weight: bold;">Feedback Form</h1>
         <p class="lead">We value your feedback! Please leave a review below.</p>
     </header>
 
@@ -410,11 +382,11 @@ header h1, header p {
                 <div class="col-12 text-center">
                     <div class="carousel">
                         <div class="carousel-container d-flex justify-content-center align-items-center">
-    <button class="carousel-button left" id="prevReview">&lt;&lt;</button>
+    <!-- <button class="carousel-button left" id="prevReview">&lt;&lt;</button> -->
     <div class="reviews" id="reviewList">
         <!-- Review items will be dynamically injected here -->
     </div>
-    <button class="carousel-button right" id="nextReview">&gt;&gt;</button>
+    <!-- <button class="carousel-button right" id="nextReview">&gt;&gt;</button> -->
 </div>
 
                 </div>
@@ -434,11 +406,14 @@ header h1, header p {
                 <div class="col-lg-4 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
                     <a class="text-white mb-2"><i class="fa fa-map-marker-alt me-3"></i>Delhi</a><br>
-                        <a class="text-white mb-2"href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqbzPsvPLHzPpbLzFkMHPzrlJZdQnlHcPHtBZNLmtBhpBGrDPcMMXlRFfgkLLHWbxhFjWL"target="_blank"><i class="fa fa-envelope me-3"></i> techrootsclub@gmail.com</a>
+                    <a class="text-white mb-2"href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqbzPsvPLHzPpbLzFkMHPzrlJZdQnlHcPHtBZNLmtBhpBGrDPcMMXlRFfgkLLHWbxhFjWL"target="_blank"><i class="fa fa-envelope me-3"></i> techrootsclub@gmail.com</a>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/techrootsclub/"target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/techrootsclub/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram" style="width:20px; height:10px;"></i> 
+                        </a>
+                        </a>
                         <p class="text-white">Follow us on Instagram</p>
-    
+
                     </div>
                 </div>
             </div>
@@ -448,7 +423,7 @@ header h1, header p {
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                         &copy; <a class="border-bottom" href="index.html">TechRoots Club </a>, All Right Reserved.
-    
+
                     </div>
                 </div>
             </div>
@@ -626,7 +601,7 @@ header h1, header p {
             }
             updateCarousel();
         }
-    }, 5000);
+    }, 18000);
 });
     </script>
     </body>
