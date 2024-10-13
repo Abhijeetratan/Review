@@ -334,39 +334,58 @@ header h1, header p {
     margin-bottom: 16px; /* Space below each review */
 }
 
-
-p.m-0.fw-bold {
-    font-size: 35px;
-    display: flex;
-    align-items: center;
-}
-
-p.m-0.fw-bold img {
-    height: 50px;
-
-}
-
-p.m-0.fw-bold span {
-    color: #d4af37; /* Gold color for "Roots Club" */
-}
-@media (max-width: 767px) {
-    p.m-0.fw-bold {
-        font-size: 20px; /* Adjust font size for mobile */
-    }
-
-    p.m-0.fw-bold img {
-        height: 30px; /* Adjust logo size for mobile */
-    }
-}
-
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" ><img src="./logo.png" alt="">Tech<span
-                    style="color: #d4af37;">Roots Club</span></p>
-        </a>
+<style>
+        
+        p.m-0.fw-bold {
+            font-size: 35px;
+            display: flex;
+            align-items: center;
+        }
+        
+        p.m-0.fw-bold img {
+            height: 50px;
+        
+        }
+        
+        p.m-0.fw-bold span {
+            font-size: 35px;
+            color: #d4af37; /* Gold color for "Roots Club" */
+        }
+        @media (max-width: 767px) {
+            p.m-0.fw-bold {
+                font-size: 20px; /* Adjust font size for mobile */
+            }
+        
+            p.m-0.fw-bold img {
+                height: 30px; /* Adjust logo size for mobile */
+            }
+            p.m-0.fw-bold span {
+            font-size: 20px;
+        }
+            p.m-0.fw-bold span {
+            font-size: 35px;
+        }
+        }
+        
+        
+                </style>
+        <body>
+            <!-- Spinner Start -->
+            <div id="spinner"
+                class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <!-- Spinner End -->
+        
+        
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+                <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+                    <p class="m-0 fw-bold"><img src="img/logo.png" alt=""><span style="color:black;">Tech</span><span
+                        style="color: #d4af37;">Roots Club</span></p>
+                </a>  
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             style="border: none;">
             <span class="navbar-toggler-icon"></span>
