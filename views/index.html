@@ -161,11 +161,7 @@ header h1, header p {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9); /* Default box shadow */
             transition: box-shadow 0.5s ease, transform 0.5s ease; /* Transition for shadow and scale */
         }
-        .reviews {
-    display: flex; /* Display reviews in a row */
-   
-    will-change: transform; /* Optimizes performance */
-}
+ 
 
         .review:hover {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Darker and larger shadow on hover */
@@ -258,12 +254,6 @@ header h1, header p {
     flex-wrap: nowrap; /* Prevents wrapping to a new line */
 }
 
-.review {
-    min-width: 30%; /* Make each review take full width on mobile */
-    padding: 10px;   /* Padding around each review */
-    box-sizing: border-box; /* Include padding in width */
-    text-align: center; /* Center-align text for better readability */
-}
 
 .carousel-button {
     background-color: #007bff; /* Button color */
@@ -298,11 +288,21 @@ header h1, header p {
         padding: 5px;    /* Adjust button padding */
     }
 
-    .review {
-    max-width: 38%; /* Make each review take full width on mobile */
-    padding: 5px;   /* Padding around each review */
-    box-sizing: border-box; /* Include padding in width */
-    text-align: center; /* Center-align text for better readability */
+ review {
+    max-width: 34%;
+    padding: 17px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.review {
+
+    flex: 0 0 267px;
+    border: 1px solid #ddd;
+    padding: 35px;
+    margin-left: 8px;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 90%);
 }
 }
 
@@ -339,6 +339,7 @@ p.m-0.fw {
     font-size: 35px;
     display: flex;
     align-items: center;
+    
 }
 
 p.m-0.fw img {
