@@ -308,7 +308,6 @@ header h1, header p {
         /* Styling for rating term */
         .rating-term {
             margin-top: 10px; /* Space above the rating term */
-            font-weight: bold;
             font-size: 16px; /* Font size for the term */
         }
         @media (max-width: 600px) {
@@ -335,12 +334,37 @@ header h1, header p {
     margin-bottom: 16px; /* Space below each review */
 }
 
+
+p.m-0.fw-bold {
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+}
+
+p.m-0.fw-bold img {
+    height: 50px;
+
+}
+
+p.m-0.fw-bold span {
+    color: #d4af37; /* Gold color for "Roots Club" */
+}
+@media (max-width: 767px) {
+    p.m-0.fw-bold {
+        font-size: 20px; /* Adjust font size for mobile */
+    }
+
+    p.m-0.fw-bold img {
+        height: 30px; /* Adjust logo size for mobile */
+    }
+}
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 35px;"><img src="./logo.png" alt="" height="50px">Tech<span
+            <p class="m-0 fw-bold" ><img src="./logo.png" alt="">Tech<span
                     style="color: #d4af37;">Roots Club</span></p>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
