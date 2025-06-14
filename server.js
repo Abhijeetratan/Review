@@ -15,13 +15,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // For form submissions
 app.use(morgan('combined'));
-app.use(express.static(path.join(__dirname, 'views'))); // Serve static files from the 'views' directory
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
-// ✅ Serve static files from "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB connection
@@ -87,6 +83,10 @@ app.post('/reviews', async (req, res) => {
         console.error('Error saving review:', error);
         return res.status(500).json({ success: false, message: 'Error saving review' });
     }
+});
+
+app.get('/pdf-download', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/pdf/QA_Automation_Engineer_Training_2025.pdf'));
 });
 
 // Handle 404 errors for unmatched routes
