@@ -18,7 +18,11 @@ app.use(morgan('combined'));
 app.use(express.static(path.join(__dirname, 'views'))); // Serve static files from the 'views' directory
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); // Use path.join for views directory
+app.set('views', path.join(__dirname, 'views'));
+
+
+// ✅ Serve static files from "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB connection
 const uri = process.env.MONGODB_URI || 'mongodb+srv://doctor123:doctor123@cluster0.nnxbqud.mongodb.net/review';
